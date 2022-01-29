@@ -1,4 +1,5 @@
 import React from 'react';
+// import { Map } from './Map';
 
 type Props = {
   message: string;
@@ -11,20 +12,22 @@ const defaultProps = {
 export const App = (props: Props): JSX.Element => {
   return (
     <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'grid',
-        justifyContent: 'center',
-        alignItems: 'center',
-        font: 'caption',
-        backgroundColor: 'black',
-        color: 'white',
-      }}
     >
-      <h1>
-        { props.message }
-      </h1>
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'grid',
+          justifyContent: 'center',
+          alignItems: 'center',
+          font: 'caption',
+          color: 'black',
+        }}
+      >
+        <h1>
+          { props.message }
+        </h1>
+      </div>
     </div>
   );
 }

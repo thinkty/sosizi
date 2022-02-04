@@ -32,6 +32,7 @@ export const Button = (props: Props): JSX.Element => {
         backgroundColor: isHovering ? '#f3f3f3' : 'transparent',
         fontSize: '20px',
         fontWeight: 'bold',
+        userSelect: 'none', // Don't make the texts selectable
       }}
     >
       { props.content }

@@ -13,19 +13,21 @@
       id="map"
       style="height: 100vh; width: 100vw;"
     >
-      <div id="root"></div>
     </div>
+    <div id="root"></div>
     <script>
-      var mapOptions = {
-        center: new naver.maps.LatLng(37.561643, 127.027604),
+      const walkIcon = [
+        `<img src="https://img.icons8.com/fluency-systems-regular/22/ffffff/walking-skin-type-1.png"/>`,
+      ].join('');
+
+      const centerPoint = new naver.maps.LatLng(37.561643, 127.027604);
+
+      const mapOptions = {
+        center: centerPoint,
         zoom: 17,
         minZoom: 17,
         zoomControl: false,
         mapTypeId: naver.maps.MapTypeId.NORMAL,
-        // maxBounds: new naver.maps.LatLngBounds(
-        //   new naver.maps.LatLng(37.56822992205213, 127.03715576279855),
-        //   new naver.maps.LatLng(37.55337848893908, 127.01589622787758)
-        // ),
       };
 
       var map = new naver.maps.Map('map', mapOptions);
@@ -76,9 +78,8 @@
       });
 
       // Place the markers loaded from the config file
-      var deliveryPoints = [
+      var carDeliveryPoints = [
         {
-          order: 0,
           quantity: '200',
           id: '11',
           addr: '무학봉길 67',
@@ -87,7 +88,6 @@
           walk: false,
         },
         {
-          order: 1,
           quantity: '150',
           id: '13',
           addr: '무학봉13길 3-9',
@@ -96,7 +96,6 @@
           walk: false,
         },
         {
-          order: 2,
           quantity: '300',
           id: '10',
           addr: '무학봉12길 2-7',
@@ -105,7 +104,6 @@
           walk: false,
         },
         {
-          order: 3,
           quantity: '250',
           id: '14',
           addr: '무학현대아파트',
@@ -114,7 +112,6 @@
           walk: false,
         },
         {
-          order: 4,
           quantity: '200',
           id: '16',
           addr: 'KCC스위첸',
@@ -123,7 +120,6 @@
           walk: false,
         },
         {
-          order: 5,
           quantity: '250',
           id: '18',
           addr: '풍림 101동',
@@ -132,7 +128,6 @@
           walk: false,
         },
         {
-          order: 6,
           quantity: '150',
           id: '20',
           addr: '풍림 110동',
@@ -141,7 +136,6 @@
           walk: false,
         },
         {
-          order: 7,
           quantity: '250',
           id: '19',
           addr: '풍림 109동',
@@ -150,7 +144,6 @@
           walk: false,
         },
         {
-          order: 8,
           quantity: '300+300',
           id: '21/22',
           addr: '자이 104동',
@@ -159,7 +152,6 @@
           walk: false,
         },
         {
-          order: 9,
           quantity: '150',
           id: '26',
           addr: '극동미라주 임대 104동',
@@ -168,7 +160,6 @@
           walk: false,
         },
         {
-          order: 10,
           quantity: '350',
           id: '25',
           addr: '극동미라주 일반 102동',
@@ -177,7 +168,6 @@
           walk: false,
         },
         {
-          order: 11,
           quantity: '300',
           id: '24',
           addr: '금호베스트빌 103동',
@@ -186,7 +176,6 @@
           walk: false,
         },
         {
-          order: 12,
           quantity: '300',
           id: '23',
           addr: '금호베스트빌 101동',
@@ -195,7 +184,6 @@
           walk: false,
         },
         {
-          order: 13,
           quantity: '150',
           id: '1',
           addr: '한진그랑빌 아파트 101동',
@@ -204,7 +192,6 @@
           walk: false,
         },
         {
-          order: 14,
           quantity: '400',
           id: '15',
           addr: '한신무학아파트',
@@ -213,7 +200,6 @@
           walk: false,
         },
         {
-          order: 15,
           quantity: '300',
           id: '3',
           addr: '왕십리로31나길 33 상왕아파트',
@@ -222,7 +208,6 @@
           walk: false,
         },
         {
-          order: 16,
           quantity: '300',
           id: '2',
           addr: '왕십리로33길 7-6',
@@ -231,7 +216,6 @@
           walk: false,
         },
         {
-          order: 17,
           quantity: '150',
           id: '4',
           addr: '무학봉15길 26',
@@ -240,7 +224,6 @@
           walk: false,
         },
         {
-          order: 18,
           quantity: '150',
           id: '5',
           addr: '무학봉25길 9',
@@ -249,7 +232,6 @@
           walk: false,
         },
         {
-          order: 19,
           quantity: '300',
           id: '6',
           addr: '무학봉25길 6',
@@ -258,7 +240,6 @@
           walk: false,
         },
         {
-          order: 20,
           quantity: '350',
           id: '8',
           addr: '무학봉길 81-18',
@@ -267,7 +248,6 @@
           walk: false,
         },
         {
-          order: 21,
           quantity: '200',
           id: '9',
           addr: '로뎀하우스 커피',
@@ -275,8 +255,10 @@
           note: '카페 안 식탁에 놓기',
           walk: false,
         },
+      ];
+
+      var walkingDeliveryPoints = [
         {
-          order: 22,
           quantity: '50',
           id: '10 신영',
           addr: '신영지웰 아파트',
@@ -285,7 +267,6 @@
           walk: true,
         },
         {
-          order: 23,
           quantity: '200',
           id: '12',
           addr: '무학봉15가길 16-2',
@@ -295,12 +276,13 @@
         },
       ];
 
-      // Sort the delivery-points by property 'order'
-      deliveryPoints.sort((a, b) => a.order > b.order);
+      var deliveryPoints = carDeliveryPoints.concat(walkingDeliveryPoints);
+      localStorage.setItem('carDeliveryPoints', JSON.stringify(carDeliveryPoints));
+      localStorage.setItem('walkingDeliveryPoints', JSON.stringify(walkingDeliveryPoints));
+      localStorage.setItem('points', JSON.stringify(deliveryPoints));
 
       // Create individual markers on the map
-      var markers = [];
-
+      var order = 1;
       for (let i = 0; i < deliveryPoints.length; i++) {
         var deliveryPoint = deliveryPoints[i];
 
@@ -308,14 +290,15 @@
         var markerContentString = [
           `<div class="marker ${deliveryPoint.walk ? 'walk' : 'car'}">`,
           ` <span class="marker-content">`,
-          `   ${deliveryPoint.walk ? '-' : deliveryPoint.order}`,
+          `   ${deliveryPoint.walk ? walkIcon : order++}`,
           ` </span>`,
           `</div>`,
         ].join('');
+
         var marker = new naver.maps.Marker({
           position: new naver.maps.LatLng(deliveryPoint.marker[0], deliveryPoint.marker[1]),
           map: map,
-          title: deliveryPoint.addr,
+          title: deliveryPoint.id,
           icon: {
             content: markerContentString,
             size: new naver.maps.Size(22, 35),
@@ -324,38 +307,31 @@
           draggable: false,
         });
 
-        markers.push({
-          point: deliveryPoint,
-          marker: marker,
-        });
-      }
-
-      for (let i = 0; i < markers.length; i++) {
-        var marker = markers[i];
-
-        // Create information window to be displayed when clicked on a window
-        var windowContentString = [
-          '<div class="iw_inner">',
-          `  <h3>${deliveryPoint.addr}</h3>`,
-          `  <h4>${deliveryPoint.id}</h4>`,
-          `  <h4>${deliveryPoint.quantity}개</h4>`,
-          '   ',
-          '</div>'
-        ].join('');
-        var infoWindow = new naver.maps.InfoWindow({
-          content: windowContentString
-        });
-
-        naver.maps.Event.addListener(marker.marker, "click", function(e) {
-          console.log(marker);
-          if (infoWindow.getMap()) {
-            infoWindow.close();
-          } else {
-            infoWindow.open(map, marker.marker);
+        // Save the current selected marker to local storage
+        naver.maps.Event.addListener(marker, "click", (currentMarker) => {
+          const id = currentMarker.overlay.title;
+          if (id == undefined) {
+            console.error('Marker ID undefined:', currentMarker);
+            return;
           }
+          
+          // Search the marker details by id
+          const markerDetail = deliveryPoints.find(point => point.id === id);
+          if (markerDetail == undefined) {
+            console.error('Could not find marker by id of', id);
+          }
+
+          localStorage.setItem('selectedMarker', JSON.stringify(markerDetail));
+
+          // Pan to marker
+          map.panTo(new naver.maps.LatLng(markerDetail.marker[0], markerDetail.marker[1]));
         });
       }
-      
+
+      // Listen to localstorage changes and pan to the index if available
+      document.getElementById('root').addEventListener('storage', () => {
+        console.log("Updated storage");
+      });
     </script>
   </body>
 </html>

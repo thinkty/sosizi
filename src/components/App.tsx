@@ -57,6 +57,7 @@ export const App = (props: Props): JSX.Element => {
       <InfoBar
         isMobile={isMobile}
         info={status === Status.Ready ? info : carDeliveryPoints[index]}
+        index={status === Status.Ready ? null : index}
       />
       <MainBar
         isMobile={isMobile}

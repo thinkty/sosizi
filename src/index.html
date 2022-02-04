@@ -321,17 +321,24 @@
             console.error('Could not find marker by id of', id);
           }
 
-          localStorage.setItem('selectedMarker', JSON.stringify(markerDetail));
+          localStorage.setItem('selectedPoint', JSON.stringify(markerDetail));
+          window.dispatchEvent(new Event('storage'));
 
           // Pan to marker
           map.panTo(new naver.maps.LatLng(markerDetail.marker[0], markerDetail.marker[1]));
         });
       }
 
-      // Listen to localstorage changes and pan to the index if available
-      document.getElementById('root').addEventListener('storage', () => {
-        console.log("Updated storage");
+      // Remove localStorage 'selectedPoint' if clicked on map background
+      naver.maps.Event.addListener(map, 'click', (e) => {
+        localStorage.removeItem('selectedPoint');
+        window.dispatchEvent(new Event('storage'));
       });
+
+      // // Listen to localstorage changes and pan to the selectedPoint's coordinates if available
+      // document.getElementById('root').addEventListener('storage', () => {
+      //   console.log("Updated storage");
+      // });
     </script>
   </body>
 </html>

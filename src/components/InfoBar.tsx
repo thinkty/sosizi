@@ -1,4 +1,5 @@
 import React from 'react';
+import { InfoBarFooter } from './InfoBarFooter';
 import { InfoBarHeader } from './InfoBarHeader';
 import { Point } from './types';
 
@@ -56,6 +57,12 @@ export const InfoBar = (props: Props): JSX.Element => {
             <div style={{ padding: '10px' }}>
               { info.note }
             </div>
+          }
+          {
+            info.pics.length !== 0 &&
+            <InfoBarFooter
+              pics={info.pics}
+            />
           }
         </>
       }

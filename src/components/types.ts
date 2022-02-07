@@ -4,6 +4,7 @@ export type Point = {
   addr: string;
   marker: [number, number];
   note: string;
+  pics: string[];
   walk: boolean;
 };
 

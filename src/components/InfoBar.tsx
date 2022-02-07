@@ -48,12 +48,15 @@ export const InfoBar = (props: Props): JSX.Element => {
             id={info.id}
             index={index}
           />
-          <div style={{ paddingTop: '10px' }}>
+          <div style={{ padding: '10px' }}>
             [ { info.quantity } 매 ]
           </div>
-          <div style={{ paddingBottom: '10px' }}>
-            { info.note }
-          </div>
+          {
+            info.note &&
+            <div style={{ padding: '10px' }}>
+              { info.note }
+            </div>
+          }
         </>
       }
     </div>

@@ -31,7 +31,7 @@ export const MainBar = (props: Props): JSX.Element => {
         width: isMobile ? '90%': '300px',
         height: '60px',
         backgroundColor: 'white',
-        zIndex: 110,
+        zIndex: 105,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'normal',

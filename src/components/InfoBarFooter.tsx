@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 
 type Props = {
-  pics: string[];
+  numberOfPics: number;
+  openModal: VoidFunction;
 } & typeof defaultProps;
 
 const defaultProps = {};
 
 export const InfoBarFooter = (props: Props): JSX.Element => {
-  const { pics } = props;
+  const { numberOfPics, openModal } = props;
   const [hovering, setHover] = useState<boolean>(false);
-  const numberOfPics = pics.length;
 
   return (
     <div
       onMouseEnter={() => { setHover(true); }}
       onMouseLeave={() => { setHover(false); }}
+      onClick={() => { openModal(); }}
       style={{
         width: '100%',
         backgroundColor: hovering ? '#72bcd4' : '#86c5da',

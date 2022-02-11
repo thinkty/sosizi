@@ -7,12 +7,13 @@ type Props = {
   isMobile: boolean;
   info: Point | null;
   index: number | null;
+  openModal: VoidFunction;
 } & typeof defaultProps;
 
 const defaultProps = {};
 
 export const InfoBar = (props: Props): JSX.Element => {
-  const { isMobile, info, index } = props;
+  const { isMobile, info, index, openModal } = props;
 
   return (
     <div
@@ -61,7 +62,8 @@ export const InfoBar = (props: Props): JSX.Element => {
           {
             info.pics.length !== 0 &&
             <InfoBarFooter
-              pics={info.pics}
+              numberOfPics={info.pics.length}
+              openModal={() => { openModal(); }}
             />
           }
         </>

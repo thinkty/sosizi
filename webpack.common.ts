@@ -28,6 +28,10 @@ const commonConfiguration: webpack.Configuration = {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(jpg|jpeg|gif|png)$/,
+        use: { loader: 'file-loader' },
+      }
     ],
   },
   output: {

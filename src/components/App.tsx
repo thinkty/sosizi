@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ImageModal } from './ImageModal';
 import { InfoBar } from './InfoBar';
 import { MainBar } from './MainBar';
 import { Point, Status } from './types';
@@ -31,6 +32,7 @@ export const App = (props: Props): JSX.Element => {
   const [index, setIndex] = useState<number>(0);
   const [status, setStatus] = useState<Status>(Status.Ready);
   const [info, setInfo] = useState<Point | null>(null);
+  const [modalOpen, openModal] = useState<boolean>(false);
 
   useEffect(() => {
     // Making the application responsive
@@ -58,6 +60,7 @@ export const App = (props: Props): JSX.Element => {
         isMobile={isMobile}
         info={status === Status.Ready ? info : carDeliveryPoints[index]}
         index={status === Status.Ready ? null : index}
+        openModal={() => { openModal(true) }}
       />
       <MainBar
         isMobile={isMobile}
@@ -66,6 +69,12 @@ export const App = (props: Props): JSX.Element => {
         setIndex={(newIndex) => { setIndex(newIndex) }}
         status={status}
         setStatus={(newStatus) => { setStatus(newStatus) }}
+      />
+      <ImageModal
+        isMobile={isMobile}
+        open={modalOpen}
+        pics={info == null ? [] : info.pics}
+        closeModal={() => { openModal(false); }}
       />
     </>
   );

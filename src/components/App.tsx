@@ -15,9 +15,15 @@ const defaultProps = {
 // Preload the images to reduce image render time. Takes an array of urls to
 // render the images from.
 const preloadImages = (urls: string[]) => {
-  urls.forEach((url) => {
-    (new Image()).src = url;
-  });
+  const images = [];
+
+  for (let i = 0; i < urls.length; i++) {
+    const image = new Image();
+    image.src = '/images/' + urls[i];
+    images.push(image);
+  }
+
+  console.log('Preloaded', images.length, 'images');
 };
 
 export const App = (props: Props): JSX.Element => {
@@ -49,7 +55,7 @@ export const App = (props: Props): JSX.Element => {
     // Preload images to reduce lag
     const imageUrls: string[] = [];
     for (let i = 0; i < carDeliveryPoints.length; i++) {
-      imageUrls.concat(carDeliveryPoints[i].pics);
+      imageUrls.push(...carDeliveryPoints[i].pics);
     }
     preloadImages(imageUrls);
 

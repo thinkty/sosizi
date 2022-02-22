@@ -76,7 +76,7 @@ export const ImageModal = (props: Props): JSX.Element => {
         {/* Actual Image */}
         <img
           onClick={() => {}}
-          src={`/images/${pics[index]}.jpg`}
+          src={`/images/${pics[index]}`}
           height={isMobile ? "auto" : "80%"}
           width={isMobile ? "90%" : "auto"}
           style={{
@@ -153,7 +153,7 @@ export const ImageModal = (props: Props): JSX.Element => {
       }
       <img
         onClick={() => {}}
-        src={`/images/${pics[index]}.jpg`}
+        src={`/images/${pics[index]}`}
         height={isMobile ? "auto" : "80%"}
         width={isMobile ? "90%" : "auto"}
         style={{

@@ -6,12 +6,10 @@ import { Point, Status } from './types';
 
 type Props = {
   mobileViewWidth: number;
-  message: string;
 } & typeof defaultProps;
 
 const defaultProps = {
   mobileViewWidth: 600,
-  message: 'Hello World!',
 };
 
 export const App = (props: Props): JSX.Element => {
@@ -22,7 +20,7 @@ export const App = (props: Props): JSX.Element => {
     return (<div/>);
   }
 
-  const carDeliveryPoints = JSON.parse(rawPoints);
+  const carDeliveryPoints: Point[] = JSON.parse(rawPoints);
   if (!Array.isArray(carDeliveryPoints)) {
     alert('Error-002');
     return (<div/>);
@@ -73,7 +71,7 @@ export const App = (props: Props): JSX.Element => {
       <ImageModal
         isMobile={isMobile}
         open={modalOpen}
-        pics={info == null ? [] : info.pics}
+        pics={info == null ? [] : status === Status.Ready ? info.pics : carDeliveryPoints[index].pics}
         closeModal={() => { openModal(false); }}
       />
     </>

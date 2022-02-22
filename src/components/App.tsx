@@ -12,6 +12,14 @@ const defaultProps = {
   mobileViewWidth: 600,
 };
 
+// Preload the images to reduce image render time. Takes an array of urls to
+// render the images from.
+const preloadImages = (urls: string[]) => {
+  urls.forEach((url) => {
+    (new Image()).src = url;
+  });
+};
+
 export const App = (props: Props): JSX.Element => {
   // Retrieve points from local storage and assert that the points is an array
   const rawPoints = localStorage.getItem('carDeliveryPoints');
@@ -38,6 +46,14 @@ export const App = (props: Props): JSX.Element => {
       setScreen(window.innerWidth < props.mobileViewWidth);
     });
 
+    // Preload images to reduce lag
+    const imageUrls: string[] = [];
+    for (let i = 0; i < carDeliveryPoints.length; i++) {
+      imageUrls.concat(carDeliveryPoints[i].pics);
+    }
+    preloadImages(imageUrls);
+
+    // Reset session
     localStorage.removeItem('selectedPoint');
 
     // Setting the info based on localStorage event for the key 'selectedPoint'.

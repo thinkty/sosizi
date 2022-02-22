@@ -93,7 +93,7 @@ export const App = (props: Props): JSX.Element => {
       <ImageModal
         isMobile={isMobile}
         open={modalOpen}
-        pics={info == null ? [] : status === Status.Ready ? info.pics : carDeliveryPoints[index].pics}
+        pics={status === Status.Ready ? info == null ? [] : info.pics : carDeliveryPoints[index].pics}
         closeModal={() => { openModal(false); }}
       />
     </>

@@ -38,16 +38,11 @@
   </head>
   <body style="margin: 0;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div
-      id="map"
-      style="height: 100vh; width: 100vw;"
-    >
+    <div id="map" style="height: 100vh; width: 100vw;">
     </div>
     <div id="root"></div>
     <script>
-      const walkIcon = [
-        `<img src="https://img.icons8.com/fluency-systems-regular/22/ffffff/walking-skin-type-1.png"/>`,
-      ].join('');
+      const walkIcon = [`<img src="/icons/walking.svg"/>`,].join('');
 
       const centerPoint = new naver.maps.LatLng(37.561643, 127.027604);
 
@@ -106,292 +101,77 @@
         strokeWeight: 5,
       });
 
-      // Place the markers loaded from the config file
-      var carDeliveryPoints = [
-        {
-          quantity: '200',
-          id: '11',
-          addr: '무학봉길 67',
-          marker: [37.56094859752071, 127.03015779894658],
-          note: '주민센터 앞 붉은 벽돌 빌라, 3층 문 옆 계단 위에',
-          pics: ['11-1.jpg', '11-2.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '13',
-          addr: '무학봉13길 3-9',
-          marker: [37.560899842280875, 127.02910921899645],
-          note: '약국 골목 들어가서 왼쪽',
-          pics: ['13-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '10',
-          addr: '무학봉12길 2-7',
-          marker: [37.56040126651988, 127.02895296034693],
-          note: '미용실 골목길 들어가서 왼쪽',
-          pics: ['10-1.jpg', '10-2.jpg', '10-3.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '250',
-          id: '14',
-          addr: '무학현대아파트',
-          marker: [37.56054077172557, 127.02820167020985],
-          note: '경비실',
-          pics: ['14-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '200',
-          id: '16',
-          addr: 'KCC스위첸',
-          marker: [37.560572838375, 127.02691284848298],
-          note: '입구 쪽 아파트 승강기 앞',
-          pics: ['16-1.jpg', '16-2.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '250',
-          id: '18',
-          addr: '풍림 101동',
-          marker: [37.55980667473919, 127.02673721636019],
-          note: '제1경비초소',
-          pics: [],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '20',
-          addr: '풍림 110동',
-          marker: [37.55857083379797, 127.02486229362296],
-          note: '제4경비초소, 포스터 6장',
-          pics: [],
-          walk: false,
-        },
-        {
-          quantity: '250',
-          id: '19',
-          addr: '풍림 109동',
-          marker: [37.55824005896648, 127.02509966163642],
-          note: '경비초소',
-          pics: [],
-          walk: false,
-        },
-        {
-          quantity: '300+300',
-          id: '21&22',
-          addr: '자이 104동',
-          marker: [37.56029153222495, 127.02495573859585],
-          note: '관리소 내부 벤치에 놓기',
-          pics: ['21&22-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '26',
-          addr: '극동미라주 임대 104동',
-          marker: [37.55954368392059, 127.0233369493517],
-          note: '1층 엘리베이터 앞',
-          pics: ['26-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '350',
-          id: '25',
-          addr: '극동미라주 일반 102동',
-          marker: [37.55865684531638, 127.02329011420984],
-          note: '경비초소',
-          pics: ['25-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '24',
-          addr: '금호베스트빌 103동',
-          marker: [37.56159828367503, 127.0262915599516],
-          note: '제1경비초소',
-          pics: [],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '23',
-          addr: '금호베스트빌 101동',
-          marker: [37.56192453067535, 127.02551584552508],
-          note: '경비초소',
-          pics: ['23-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '1',
-          addr: '한진그랑빌 아파트 101동',
-          marker: [37.563042393339806, 127.02658963981524],
-          note: '관리실',
-          pics: [],
-          walk: false,
-        },
-        {
-          quantity: '400',
-          id: '15',
-          addr: '한신무학아파트',
-          marker: [37.56281237159306, 127.02847297208295],
-          note: '정문 경비초소',
-          pics: ['15-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '3',
-          addr: '왕십리로31나길 33 상왕아파트',
-          marker: [37.56350694602661, 127.02862470072367],
-          note: '1층 우편함 계단 옆',
-          pics: ['3-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '2',
-          addr: '왕십리로33길 7-6',
-          marker: [37.56411530896786, 127.02732828725405],
-          note: '',
-          pics: ['2-1.jpg', '2-2.jpg', '2-3.jpg', '2-4.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '4',
-          addr: '무학봉15길 26',
-          marker: [37.56336268442531, 127.03044163359502],
-          note: '산고을칼국수에서 화장실 열쇠 가지고 왼쪽 집으로 들어가서 계단에 놓기',
-          pics: ['4-1.jpg', '4-2.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '150',
-          id: '5',
-          addr: '무학봉25길 9',
-          marker: [37.56264340069574, 127.03147865058267],
-          note: '문이 잘 안 열림',
-          pics: ['5-1.jpg', '5-2.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '300',
-          id: '6',
-          addr: '무학봉25길 6',
-          marker: [37.56235583786233, 127.03170395610907],
-          note: '',
-          pics: ['6-1.jpg', '6-2.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '350',
-          id: '8',
-          addr: '무학봉길 81-18',
-          marker: [37.56175535179793, 127.03119671405518],
-          note: '새마을금고 뒷골목',
-          pics: ['8-1.jpg'],
-          walk: false,
-        },
-        {
-          quantity: '200',
-          id: '9',
-          addr: '로뎀하우스 커피',
-          marker: [37.56187070277743, 127.03085814867092],
-          note: '카페 안 식탁에 놓기',
-          pics: [],
-          walk: false,
-        },
-      ];
+      // Fetch delivery points from the server
+      fetch('/points')
+      .then(res => res.json())
+      .then(res => {
+        const { walkingDeliveryPoints, carDeliveryPoints } = res;
+        const deliveryPoints = carDeliveryPoints.concat(walkingDeliveryPoints);
+        localStorage.setItem('carDeliveryPoints', JSON.stringify(carDeliveryPoints));
+        localStorage.setItem('walkingDeliveryPoints', JSON.stringify(walkingDeliveryPoints));
+        localStorage.setItem('points', JSON.stringify(deliveryPoints));
 
-      var walkingDeliveryPoints = [
-        {
-          quantity: '50',
-          id: '10 신영',
-          addr: '신영지웰 아파트',
-          marker: [37.56090317472116, 127.03101592235791],
-          note: '경비실 문 앞',
-          pics: [],
-          walk: true,
-        },
-        {
-          quantity: '200',
-          id: '12',
-          addr: '무학봉15가길 16-2',
-          marker: [37.561669124294916, 127.029800434258],
-          note: '편지함 위에 있는 열쇠로 문 열고 놓기',
-          pics: [],
-          walk: true,
-        },
-      ];
+        // Create individual markers on the map
+        var order = 1;
+        for (let i = 0; i < deliveryPoints.length; i++) {
+          var deliveryPoint = deliveryPoints[i];
 
-      var deliveryPoints = carDeliveryPoints.concat(walkingDeliveryPoints);
-      localStorage.setItem('carDeliveryPoints', JSON.stringify(carDeliveryPoints));
-      localStorage.setItem('walkingDeliveryPoints', JSON.stringify(walkingDeliveryPoints));
-      localStorage.setItem('points', JSON.stringify(deliveryPoints));
+          // Create marker of the delivery point
+          var markerContentString = [
+            `<div class="marker ${deliveryPoint.walk ? 'walk' : 'car'}">`,
+            ` <span class="marker-content">`,
+            `   ${deliveryPoint.walk ? walkIcon : order++}`,
+            ` </span>`,
+            `</div>`,
+          ].join('');
 
-      // Create individual markers on the map
-      var order = 1;
-      for (let i = 0; i < deliveryPoints.length; i++) {
-        var deliveryPoint = deliveryPoints[i];
+          var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(deliveryPoint.marker[0], deliveryPoint.marker[1]),
+            map: map,
+            title: deliveryPoint.id,
+            icon: {
+              content: markerContentString,
+              size: new naver.maps.Size(22, 35),
+              anchor: new naver.maps.Point(11, 35)
+            },
+            draggable: false,
+          });
 
-        // Create marker of the delivery point
-        var markerContentString = [
-          `<div class="marker ${deliveryPoint.walk ? 'walk' : 'car'}">`,
-          ` <span class="marker-content">`,
-          `   ${deliveryPoint.walk ? walkIcon : order++}`,
-          ` </span>`,
-          `</div>`,
-        ].join('');
+          // Save the current selected marker to local storage
+          naver.maps.Event.addListener(marker, "click", (currentMarker) => {
+            const id = currentMarker.overlay.title;
+            if (id == undefined) {
+              console.error('Marker ID undefined:', currentMarker);
+              return;
+            }
+            
+            // Search the marker details by id
+            const markerDetail = deliveryPoints.find(point => point.id === id);
+            if (markerDetail == undefined) {
+              console.error('Could not find marker by id of', id);
+            }
 
-        var marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(deliveryPoint.marker[0], deliveryPoint.marker[1]),
-          map: map,
-          title: deliveryPoint.id,
-          icon: {
-            content: markerContentString,
-            size: new naver.maps.Size(22, 35),
-            anchor: new naver.maps.Point(11, 35)
-          },
-          draggable: false,
-        });
+            localStorage.setItem('selectedPoint', JSON.stringify(markerDetail));
+            window.dispatchEvent(new Event('storage'));
 
-        // Save the current selected marker to local storage
-        naver.maps.Event.addListener(marker, "click", (currentMarker) => {
-          const id = currentMarker.overlay.title;
-          if (id == undefined) {
-            console.error('Marker ID undefined:', currentMarker);
-            return;
-          }
-          
-          // Search the marker details by id
-          const markerDetail = deliveryPoints.find(point => point.id === id);
-          if (markerDetail == undefined) {
-            console.error('Could not find marker by id of', id);
-          }
+            // Pan to marker
+            map.panTo(new naver.maps.LatLng(markerDetail.marker[0], markerDetail.marker[1]));
+          });
+        }
 
-          localStorage.setItem('selectedPoint', JSON.stringify(markerDetail));
+        // Remove localStorage 'selectedPoint' if clicked on map background
+        naver.maps.Event.addListener(map, 'click', (e) => {
+          localStorage.removeItem('selectedPoint');
           window.dispatchEvent(new Event('storage'));
-
-          // Pan to marker
-          map.panTo(new naver.maps.LatLng(markerDetail.marker[0], markerDetail.marker[1]));
         });
-      }
 
-      // Remove localStorage 'selectedPoint' if clicked on map background
-      naver.maps.Event.addListener(map, 'click', (e) => {
-        localStorage.removeItem('selectedPoint');
-        window.dispatchEvent(new Event('storage'));
-      });
-
-      // // Listen to localstorage changes and pan to the selectedPoint's coordinates if available
-      // document.getElementById('root').addEventListener('storage', () => {
-      //   console.log("Updated storage");
-      // });
+        // Listen to localstorage changes and pan to the selectedPoint's coordinates if available
+        document.getElementById('root').addEventListener('storage', () => {
+          console.log("Updated storage");
+          // map.panTo
+        });
+      })
+      .catch(err => { throw err });
     </script>
   </body>
 </html>

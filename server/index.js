@@ -5,6 +5,7 @@ const port = process.env.PORT || 9000;
 const publicPath = path.join(__dirname, '..', '/dist');
 const imagePath = path.join(__dirname, '..', '/images');
 const iconPath = path.join(__dirname, '..', '/icons');
+const pointsPath = path.join(__dirname, '/points.json');
 
 app.use(express.static(publicPath));
 
@@ -28,6 +29,14 @@ app.get('/images/:picId', (req, res) => {
   console.log('Requesting pic: ', picId);
 
   res.sendFile(path.join(imagePath, picId));
+});
+
+// Delivery Points
+app.get('/points', (req, res) => {
+  console.log('Requesting delivery points...');
+
+  res.header("Content-Type",'application/json');
+  res.sendFile(pointsPath);
 });
 
 app.listen(port, () => {

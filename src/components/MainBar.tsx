@@ -49,6 +49,9 @@ export const MainBar = (props: Props): JSX.Element => {
               setStatus(Status.OnDelivery);
               setIndex(0);
               localStorage.setItem('currentIndex', '0');
+
+              // Trigger pan to marker
+              window.dispatchEvent(new CustomEvent('selection', { detail: 0 }));
             }}
           />
         </>
@@ -68,6 +71,9 @@ export const MainBar = (props: Props): JSX.Element => {
               } else {
                 setIndex(index + 1);
                 localStorage.setItem('currentIndex', `${index + 1}`);
+
+                // Trigger pan to marker
+                window.dispatchEvent(new CustomEvent('selection', { detail: index + 1 }));
               }
             }}
           />

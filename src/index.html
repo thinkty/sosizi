@@ -162,13 +162,14 @@
         // Remove localStorage 'selectedPoint' if clicked on map background
         naver.maps.Event.addListener(map, 'click', (e) => {
           localStorage.removeItem('selectedPoint');
-          window.dispatchEvent(new Event('storage'));
+            window.dispatchEvent(new Event('storage'));
         });
 
         // Listen to localstorage changes and pan to the selectedPoint's coordinates if available
-        document.getElementById('root').addEventListener('storage', () => {
-          console.log("Updated storage");
-          // map.panTo
+        window.addEventListener('selection', (e) => {
+          console.log("Updated selection to", carDeliveryPoints[e.detail].addr);
+
+          map.panTo(new naver.maps.LatLng(carDeliveryPoints[e.detail].marker[0], carDeliveryPoints[e.detail].marker[1]));
         });
       })
       .catch(err => { throw err });

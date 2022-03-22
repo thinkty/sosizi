@@ -4,6 +4,7 @@ const app = express();
 const port = process.env.PORT || 9000;
 const publicPath = path.join(__dirname, '..', '/dist');
 const imagePath = path.join(__dirname, '..', '/images');
+const iconPath = path.join(__dirname, '..', '/icons');
 
 app.use(express.static(publicPath));
 
@@ -11,6 +12,14 @@ app.use(express.static(publicPath));
 app.get('/', (req, res) => {
   console.log(req.params);
   res.sendFile(path.join(publicPath, 'index.html'))
+});
+
+// Icons
+app.get('/icons/:picId', (req, res) => {
+  const picId = req.params.picId;
+  console.log('Requesting icon: ', picId);
+
+  res.sendFile(path.join(iconPath, picId));
 });
 
 // Images

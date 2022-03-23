@@ -30,7 +30,7 @@ export const App = (props: Props): JSX.Element => {
   // Retrieve points from local storage and assert that the points is an array
   const rawPoints = localStorage.getItem('carDeliveryPoints');
   if (rawPoints == null) {
-    alert('Error-001');
+    alert('Error-001 페이지를 새로고침 해주세요.');
     return (<div/>);
   }
 

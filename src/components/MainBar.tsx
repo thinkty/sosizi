@@ -77,6 +77,24 @@ export const MainBar = (props: Props): JSX.Element => {
               }
             }}
           />
+          {
+            index >= 1 &&
+            <>
+            <Divider />
+            <Button
+              isMobile={isMobile}
+              content="이전"
+              borderRadius="0px 0px 0px 0px"
+              onClick={() => {
+                setIndex(index - 1);
+                localStorage.setItem('currentIndex', `${index - 1}`);
+
+                // Trigger pan to marker
+                window.dispatchEvent(new CustomEvent('selection', { detail: index - 1 }));
+              }}
+            />
+            </>
+          }
           <Divider />
           <Button
             isMobile={isMobile}

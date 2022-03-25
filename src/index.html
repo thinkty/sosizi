@@ -31,7 +31,7 @@
       }
 
       .car {
-        background-color: #83e171;
+        background-color: #ff6d41;
         /* background: linear-gradient(to right, #86c5e5, #e5a686); */
       }
     </style>
@@ -57,49 +57,49 @@
       var map = new naver.maps.Map('map', mapOptions);
 
       // Create boundary of the town
-      var boundary = new naver.maps.Polygon({
-        map: map,
-        paths: [
-          [
-            new naver.maps.LatLng(37.56421868550275, 127.02976880102375),
-            new naver.maps.LatLng(37.56320477108513, 127.03203796448129),
-            new naver.maps.LatLng(37.562507348375796, 127.03345418181908),
-            new naver.maps.LatLng(37.56079791771342, 127.03198425761022),
-            new naver.maps.LatLng(37.5603046516859, 127.03104011886457),
-            new naver.maps.LatLng(37.56014593146096, 127.02950552709011),
-            new naver.maps.LatLng(37.56004854395593, 127.02899658559534),
-            new naver.maps.LatLng(37.5602340323701, 127.02864558691543),
-            new naver.maps.LatLng(37.56026648666263, 127.02818344096711),
-            new naver.maps.LatLng(37.55985838871628, 127.02748731064575),
-            new naver.maps.LatLng(37.55987692858802, 127.0271129139073),
-            new naver.maps.LatLng(37.55916744655975, 127.02632315310267),
-            new naver.maps.LatLng(37.55846255594703, 127.02589611851411),
-            new naver.maps.LatLng(37.55811010725038, 127.02552173158666),
-            new naver.maps.LatLng(37.557989523865224, 127.02495429435973),
-            new naver.maps.LatLng(37.55793849655609, 127.02430495603343),
-            new naver.maps.LatLng(37.55781794910222, 127.02442778164738),
-            new naver.maps.LatLng(37.55774835634181, 127.02283659923427),
-            new naver.maps.LatLng(37.5589772853168, 127.02281899804075),
-            new naver.maps.LatLng(37.55907466261247, 127.0224387388446),
-            new naver.maps.LatLng(37.55937610468658, 127.02280735913382),
-            new naver.maps.LatLng(37.559974332220676, 127.02328703619571),
-            new naver.maps.LatLng(37.56028039633988, 127.02325192745617),
-            new naver.maps.LatLng(37.560605012255344, 127.02335136796474),
-            new naver.maps.LatLng(37.56089716849818, 127.02356781068762),
-            new naver.maps.LatLng(37.561500009977195, 127.02408847106456),
-            new naver.maps.LatLng(37.5618802700878, 127.02441021297471),
-            new naver.maps.LatLng(37.5625665813267, 127.0259429130359),
-            new naver.maps.LatLng(37.56368412555105, 127.02659809690333),
-            new naver.maps.LatLng(37.56443997945141, 127.02656883395935),
-            new naver.maps.LatLng(37.56471820920189, 127.02665658001844),
-            new naver.maps.LatLng(37.56495470451709, 127.02670922682671),
-            new naver.maps.LatLng(37.564699665202454, 127.0279728442341),
-          ]
-        ],
-        strokeColor: '#e17183',
-        strokeOpacity: 0.8,
-        strokeWeight: 5,
-      });
+      // var boundary = new naver.maps.Polygon({
+      //   map: map,
+      //   paths: [
+      //     [
+      //       new naver.maps.LatLng(37.56421868550275, 127.02976880102375),
+      //       new naver.maps.LatLng(37.56320477108513, 127.03203796448129),
+      //       new naver.maps.LatLng(37.562507348375796, 127.03345418181908),
+      //       new naver.maps.LatLng(37.56079791771342, 127.03198425761022),
+      //       new naver.maps.LatLng(37.5603046516859, 127.03104011886457),
+      //       new naver.maps.LatLng(37.56014593146096, 127.02950552709011),
+      //       new naver.maps.LatLng(37.56004854395593, 127.02899658559534),
+      //       new naver.maps.LatLng(37.5602340323701, 127.02864558691543),
+      //       new naver.maps.LatLng(37.56026648666263, 127.02818344096711),
+      //       new naver.maps.LatLng(37.55985838871628, 127.02748731064575),
+      //       new naver.maps.LatLng(37.55987692858802, 127.0271129139073),
+      //       new naver.maps.LatLng(37.55916744655975, 127.02632315310267),
+      //       new naver.maps.LatLng(37.55846255594703, 127.02589611851411),
+      //       new naver.maps.LatLng(37.55811010725038, 127.02552173158666),
+      //       new naver.maps.LatLng(37.557989523865224, 127.02495429435973),
+      //       new naver.maps.LatLng(37.55793849655609, 127.02430495603343),
+      //       new naver.maps.LatLng(37.55781794910222, 127.02442778164738),
+      //       new naver.maps.LatLng(37.55774835634181, 127.02283659923427),
+      //       new naver.maps.LatLng(37.5589772853168, 127.02281899804075),
+      //       new naver.maps.LatLng(37.55907466261247, 127.0224387388446),
+      //       new naver.maps.LatLng(37.55937610468658, 127.02280735913382),
+      //       new naver.maps.LatLng(37.559974332220676, 127.02328703619571),
+      //       new naver.maps.LatLng(37.56028039633988, 127.02325192745617),
+      //       new naver.maps.LatLng(37.560605012255344, 127.02335136796474),
+      //       new naver.maps.LatLng(37.56089716849818, 127.02356781068762),
+      //       new naver.maps.LatLng(37.561500009977195, 127.02408847106456),
+      //       new naver.maps.LatLng(37.5618802700878, 127.02441021297471),
+      //       new naver.maps.LatLng(37.5625665813267, 127.0259429130359),
+      //       new naver.maps.LatLng(37.56368412555105, 127.02659809690333),
+      //       new naver.maps.LatLng(37.56443997945141, 127.02656883395935),
+      //       new naver.maps.LatLng(37.56471820920189, 127.02665658001844),
+      //       new naver.maps.LatLng(37.56495470451709, 127.02670922682671),
+      //       new naver.maps.LatLng(37.564699665202454, 127.0279728442341),
+      //     ]
+      //   ],
+      //   strokeColor: '#e17183',
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 5,
+      // });
 
       // Fetch delivery points from the server
       fetch('/points')

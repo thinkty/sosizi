@@ -6,13 +6,18 @@ const publicPath = path.join(__dirname, '..', '/dist');
 const imagePath = path.join(__dirname, '..', '/images');
 const iconPath = path.join(__dirname, '..', '/icons');
 const pointsPath = path.join(__dirname, '/points.json');
+const manifestPath = path.join(__dirname, '/site.webmanifest');
 
 app.use(express.static(publicPath));
 
 // Main react application
 app.get('/', (req, res) => {
   console.log(req.params);
-  res.sendFile(path.join(publicPath, 'index.html'))
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+app.get('/site.webmanifest', (req, res) => {
+  res.sendFile(manifestPath);
 });
 
 // Icons

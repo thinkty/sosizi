@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
     <title>SoSiZi - 소식지 서순 앱</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z1u96vb25n"></script>
     <style>
@@ -33,6 +40,17 @@
       .car {
         background-color: rgba(54, 54, 54, 0.7);
         /* background: linear-gradient(to right, #86c5e5, #e5a686); */
+      }
+
+      .current {
+        cursor: default;
+        box-sizing: border-box;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        width: 20px;
+        height: 20px;
+        z-index: 6;
+        border: 5px solid #86c5da;
+        border-radius: 100px;
       }
     </style>
   </head>
@@ -173,6 +191,31 @@
         });
       })
       .catch(err => { throw err });
+
+      var currentLocationMarkerContentString = [
+        `<div class="current">`,
+        ` <span class="marker-content">`,
+        ` </span>`,
+        `</div>`,
+      ].join('');
+
+      // Set current location in an interval
+      if (navigator.geolocation) {
+        var currentLocationMarker = new naver.maps.Marker({
+          position: centerPoint,
+          map: map,
+          icon: {
+            content: currentLocationMarkerContentString,
+            size: new naver.maps.Size(22, 35),
+            anchor: new naver.maps.Point(11, 35)
+          },
+          draggable: false,
+        });
+
+        navigator.geolocation.watchPosition((position) => {
+          currentLocationMarker.setPosition(new naver.maps.LatLng(position.coords.latitude, position.coords.longitude));
+        });
+      }
     </script>
   </body>
 </html>

@@ -1,16 +1,6 @@
 {
   "walkingDeliveryPoints": [
     {
-      "quantity": "50",
-      "id": "10 신영",
-      "addr": "신영지웰 아파트 경비실 문 앞",
-      "marker": [37.56090317472116, 127.03101592235791],
-      "note": "",
-      "pics": [],
-      "poster": true,
-      "walk": true
-    },
-    {
       "quantity": "200",
       "id": "12",
       "addr": "무학봉15가길 16-2",
@@ -42,6 +32,16 @@
     }
   ],
   "carDeliveryPoints": [
+    {
+      "quantity": "50",
+      "id": "10 신영",
+      "addr": "신영지웰 아파트 경비실 문 앞",
+      "marker": [37.56090317472116, 127.03101592235791],
+      "note": "",
+      "pics": [],
+      "poster": true,
+      "walk": false
+    },
     {
       "quantity": "200",
       "id": "11",

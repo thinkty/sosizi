@@ -49,8 +49,19 @@
         width: 20px;
         height: 20px;
         z-index: 6;
-        border: 5px solid #86c5da;
-        border-radius: 100px;
+        border: 5px solid #ff0000;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+      }
+
+      .current::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: -5px;
+        margin-top: -5px;
+        background-color: #ff0000;
       }
     </style>
   </head>
@@ -192,15 +203,15 @@
       })
       .catch(err => { throw err });
 
-      var currentLocationMarkerContentString = [
-        `<div class="current">`,
-        ` <span class="marker-content">`,
-        ` </span>`,
-        `</div>`,
-      ].join('');
-
       // Set current location in an interval
       if (navigator.geolocation) {
+        var currentLocationMarkerContentString = [
+          `<div class="current">`,
+          ` <span class="marker-content">`,
+          ` </span>`,
+          `</div>`,
+        ].join('');
+
         var currentLocationMarker = new naver.maps.Marker({
           position: centerPoint,
           map: map,

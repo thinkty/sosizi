@@ -34,8 +34,19 @@
         width: 20px;
         height: 20px;
         z-index: 6;
-        border: 5px solid #86c5da;
-        border-radius: 100px;
+        border: 5px solid #ff0000;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+      }
+
+      .current::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: -5px;
+        margin-top: -5px;
+        background-color: #ff0000;
       }</style><script defer="defer" src="main.b37937b1b2fa079711ff.bundle.js"></script></head><body style="margin: 0;"><noscript>You need to enable JavaScript to run this app.</noscript><div id="map" style="height: 100vh; width: 100vw;"></div><div id="root"></div><script>const walkIcon = [`<img src="/icons/walking.svg"/>`,].join('');
 
       const centerPoint = new naver.maps.LatLng(37.561643, 127.027604);
@@ -168,15 +179,15 @@
       })
       .catch(err => { throw err });
 
-      var currentLocationMarkerContentString = [
-        `<div class="current">`,
-        ` <span class="marker-content">`,
-        ` </span>`,
-        `</div>`,
-      ].join('');
-
       // Set current location in an interval
       if (navigator.geolocation) {
+        var currentLocationMarkerContentString = [
+          `<div class="current">`,
+          ` <span class="marker-content">`,
+          ` </span>`,
+          `</div>`,
+        ].join('');
+
         var currentLocationMarker = new naver.maps.Marker({
           position: centerPoint,
           map: map,

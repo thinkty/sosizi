@@ -1,5 +1,7 @@
 # SoSiZi | 소시지 - 소식지 배달 앱
 
+![preview](https://github.com/thinkty/sosizi/blob/main/preview.png?raw=true)
+
 매달 한 번씩 왕십리2동 소식지를 배달할 때 사용하는 웹 앱
 
 ## 사용법

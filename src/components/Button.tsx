@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 type Props = {
-  isMobile: boolean;
   content: string;
   borderRadius: string;
   onClick: VoidFunction;

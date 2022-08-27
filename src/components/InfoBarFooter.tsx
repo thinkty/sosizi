@@ -1,36 +1,42 @@
 import React, { useState } from 'react';
+import { ImageModal } from './ImageModal';
 
-type Props = {
-  numberOfPics: number;
-  openModal: VoidFunction;
-} & typeof defaultProps;
-
-const defaultProps = {};
-
-export const InfoBarFooter = (props: Props): JSX.Element => {
-  const { numberOfPics, openModal } = props;
+/**
+ * @param {string[]} pics IDs for the pictures
+ */
+export const InfoBarFooter = ({
+  pics,
+} : {
+  pics: string[],
+}): JSX.Element => {
   const [hovering, setHover] = useState<boolean>(false);
+  const [open, openModal] = useState<boolean>(false);
 
   return (
-    <div
-      onMouseEnter={() => { setHover(true); }}
-      onMouseLeave={() => { setHover(false); }}
-      onClick={() => { openModal(); }}
-      style={{
-        width: '100%',
-        backgroundColor: hovering ? '#72bcd4' : '#86c5da',
-        cursor: 'pointer',
-        color: 'white',
-        paddingTop: '10px',
-        paddingBottom: '10px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      사진 보기 { numberOfPics > 1 && `(${numberOfPics}장)` } 
-    </div>
+    <>
+      <div
+        onMouseEnter={() => { setHover(true); }}
+        onMouseLeave={() => { setHover(false); }}
+        onClick={() => { openModal(true); }}
+        style={{
+          backgroundColor: hovering ? 'rgba(54, 54, 54, 0.7)' : '#000000',
+          cursor: 'pointer',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '20px',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        사진 보기
+      </div>
+      <ImageModal
+        open={open}
+        pics={pics}
+        closeModal={() => { openModal(false); }}
+      />
+    </>
   );
 }
-InfoBarFooter.defaultProps = defaultProps;

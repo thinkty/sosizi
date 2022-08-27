@@ -1,21 +1,27 @@
 import React from 'react';
+import { DeliveryPointType } from './App';
 import { InfoBarFooter } from './InfoBarFooter';
 import { InfoBarHeader } from './InfoBarHeader';
-import { Point } from './types';
 
-type Props = {
-  isMobile: boolean;
-  info: Point | null;
-  index: number | null;
-  openModal: VoidFunction;
-} & typeof defaultProps;
+/**
+ * Display information about the currently selected delivery point
+ * 
+ * @param {DeliveryPointType} deliveryPoint
+ * @param {number} index Currently selected delivery point
+ * @param {number} offest The number of walking delivery points so that when a
+ * delivery point that needs a car is selected, the correct order will be shown
+ */
+export const InfoBar = ({
+  deliveryPoint,
+  index,
+  offest,
+} : {
+  deliveryPoint: DeliveryPointType | null,
+  index: number,
+  offest: number,
+}): JSX.Element => {
 
-const defaultProps = {};
-
-export const InfoBar = (props: Props): JSX.Element => {
-  const { isMobile, info, index, openModal } = props;
-
-  if (info == null) {
+  if (deliveryPoint == null) {
     return <div />;
   }
 
@@ -27,42 +33,53 @@ export const InfoBar = (props: Props): JSX.Element => {
         marginRight: 'auto',
         left: 0,
         right: 0,
-        top: 0,
-        boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
-        width: isMobile ? '100%': '500px',
+        top: 10,
+        width: '100%',
+        maxWidth: '500px',
         minHeight: '60px',
-        backgroundColor: 'white',
         zIndex: 110,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: '10px',
       }}
     >
-      <>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '10px',
+          paddingBottom: '10px',
+          backgroundColor: 'white',
+          boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+          borderRadius: '20px',
+        }}
+      >
         <InfoBarHeader
-          addr={info.addr}
-          id={info.id}
-          index={index}
+          addr={deliveryPoint.addr}
+          id={deliveryPoint.id}
+          order={index}
+          offset={offest}
+          walk={deliveryPoint.walk}
         />
-        <div style={{ padding: '10px' }}>
-          [ { info.quantity } 매 ]
+        <div>
+          { deliveryPoint.quantity } 장
         </div>
         {
-          info.note &&
-          <div style={{ padding: '10px' }}>
-            { info.note }
+          deliveryPoint.note &&
+          <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+            { deliveryPoint.note }
           </div>
         }
-        {
-          info.pics.length !== 0 &&
-          <InfoBarFooter
-            numberOfPics={info.pics.length}
-            openModal={() => { openModal(); }}
-          />
-        }
-      </>
+      </div>
+      {
+        deliveryPoint.pics.length !== 0 &&
+        <InfoBarFooter pics={deliveryPoint.pics} />
+      }
     </div>
   );
 }
-InfoBar.defaultProps = defaultProps;

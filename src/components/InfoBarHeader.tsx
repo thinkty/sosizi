@@ -1,56 +1,51 @@
 import React from 'react';
 
-type Props = {
-  addr: string;
-  id: string;
-  index: number | null;
-} & typeof defaultProps;
-
-const defaultProps = {};
-
-export const InfoBarHeader = (props: Props): JSX.Element => {
-  const { addr, id, index } = props;
+export const InfoBarHeader = ({
+  addr,
+  id,
+  order,
+  offset,
+  walk,
+} : {
+  addr: string,
+  id: string,
+  order: number,
+  offset: number,
+  walk: boolean,
+}): JSX.Element => {
 
   return (
     <div
       style={{
         width: '100%',
-        backgroundColor: 'black',
-        color: 'white',
         paddingTop: '10px',
         paddingBottom: '10px',
+        backgroundColor: 'black',
+        borderTopLeftRadius: '20px',
+        borderTopRightRadius: '20px',
+        color: 'white',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
       }}
     >
-      <div style={{ paddingLeft: '10px' }} >
+      <div>
         {
-          index !== null &&
+          !walk &&
           <div className="marker car">
             <span className="marker-content">
-              { index + 1 }
+              { order + 1 - offset } 번
             </span>
           </div>
         }
       </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '10px',
-        }}
-      >
+      <div>
         { addr }
-        <div style={{ color: 'grey' }}>
-          { id }통
-        </div>
       </div>
-      <div />
+      <div>
+        { id }통
+      </div>
     </div>
   );
 }
-InfoBarHeader.defaultProps = defaultProps;

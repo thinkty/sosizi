@@ -1,33 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><meta name="msapplication-TileColor" content="#00aba9"><meta name="theme-color" content="#ffffff"><title>SoSiZi - 소식지 서순 앱</title><script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z1u96vb25n"></script><style>body {
-        font-family: "나눔바른고딕", NanumBarunGothic, "나눔고딕", NanumGothic, "Malgun Gothic", "돋움", dotum, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      }
-
-      .marker {
-        cursor: pointer;
-        box-sizing: border-box;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-        width: 30px;
-        height: 30px;
-        z-index: 6;
-        border: 5px solid transparent;
-        border-radius: 100px;
-        font-size: 15px;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-      }
-
-      .walk {
-        background-color: rgba(54, 54, 54, 0.7);
-        /* background: linear-gradient(to right, #a9d37b, #a57bd3); */
-      }
-
-      .car {
-        background-color: rgba(54, 54, 54, 0.7);
-        /* background: linear-gradient(to right, #86c5e5, #e5a686); */
-      }
-
-      .current {
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>SoSiZi - 소식지 서순 앱</title><style>.current {
         cursor: default;
         box-sizing: border-box;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -47,21 +18,7 @@
         margin-left: -5px;
         margin-top: -5px;
         background-color: #ff0000;
-      }</style><script defer="defer" src="main.b37937b1b2fa079711ff.bundle.js"></script></head><body style="margin: 0;"><noscript>You need to enable JavaScript to run this app.</noscript><div id="map" style="height: 100vh; width: 100vw;"></div><div id="root"></div><script>const walkIcon = [`<img src="/icons/walking.svg"/>`,].join('');
-
-      const centerPoint = new naver.maps.LatLng(37.561643, 127.027604);
-
-      const mapOptions = {
-        center: centerPoint,
-        zoom: 17,
-        minZoom: 17,
-        zoomControl: false,
-        mapTypeId: naver.maps.MapTypeId.NORMAL,
-      };
-
-      var map = new naver.maps.Map('map', mapOptions);
-
-      // Create boundary of the town
+      }</style><script defer="defer" src="main.7e297b3967e5d42338b9.bundle.js"></script></head><body style="margin: 0;"><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>// Create boundary of the town
       // var boundary = new naver.maps.Polygon({
       //   map: map,
       //   paths: [
@@ -104,102 +61,4 @@
       //   strokeColor: '#e17183',
       //   strokeOpacity: 0.8,
       //   strokeWeight: 5,
-      // });
-
-      // Fetch delivery points from the server
-      fetch('/points')
-      .then(res => res.json())
-      .then(res => {
-        const { walkingDeliveryPoints, carDeliveryPoints } = res;
-        const deliveryPoints = carDeliveryPoints.concat(walkingDeliveryPoints);
-        localStorage.setItem('carDeliveryPoints', JSON.stringify(carDeliveryPoints));
-        localStorage.setItem('walkingDeliveryPoints', JSON.stringify(walkingDeliveryPoints));
-        localStorage.setItem('points', JSON.stringify(deliveryPoints));
-
-        // Create individual markers on the map
-        var order = 1;
-        for (let i = 0; i < deliveryPoints.length; i++) {
-          var deliveryPoint = deliveryPoints[i];
-
-          // Create marker of the delivery point
-          var markerContentString = [
-            `<div class="marker ${deliveryPoint.walk ? 'walk' : 'car'}">`,
-            ` <span class="marker-content">`,
-            `   ${deliveryPoint.walk ? walkIcon : order++}`,
-            ` </span>`,
-            `</div>`,
-          ].join('');
-
-          var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(deliveryPoint.marker[0], deliveryPoint.marker[1]),
-            map: map,
-            title: deliveryPoint.id,
-            icon: {
-              content: markerContentString,
-              size: new naver.maps.Size(22, 35),
-              anchor: new naver.maps.Point(11, 35)
-            },
-            draggable: false,
-          });
-
-          // Save the current selected marker to local storage
-          naver.maps.Event.addListener(marker, "click", (currentMarker) => {
-            const id = currentMarker.overlay.title;
-            if (id == undefined) {
-              console.error('Marker ID undefined:', currentMarker);
-              return;
-            }
-            
-            // Search the marker details by id
-            const markerDetail = deliveryPoints.find(point => point.id === id);
-            if (markerDetail == undefined) {
-              console.error('Could not find marker by id of', id);
-            }
-
-            localStorage.setItem('selectedPoint', JSON.stringify(markerDetail));
-            window.dispatchEvent(new Event('storage'));
-
-            // Pan to marker
-            map.panTo(new naver.maps.LatLng(markerDetail.marker[0], markerDetail.marker[1]));
-          });
-        }
-
-        // Remove localStorage 'selectedPoint' if clicked on map background
-        naver.maps.Event.addListener(map, 'click', (e) => {
-          localStorage.removeItem('selectedPoint');
-            window.dispatchEvent(new Event('storage'));
-        });
-
-        // Listen to localstorage changes and pan to the selectedPoint's coordinates if available
-        window.addEventListener('selection', (e) => {
-          console.log("Updated selection to", carDeliveryPoints[e.detail].addr);
-
-          map.panTo(new naver.maps.LatLng(carDeliveryPoints[e.detail].marker[0], carDeliveryPoints[e.detail].marker[1]));
-        });
-      })
-      .catch(err => { throw err });
-
-      // Set current location in an interval
-      if (navigator.geolocation) {
-        var currentLocationMarkerContentString = [
-          `<div class="current">`,
-          ` <span class="marker-content">`,
-          ` </span>`,
-          `</div>`,
-        ].join('');
-
-        var currentLocationMarker = new naver.maps.Marker({
-          position: centerPoint,
-          map: map,
-          icon: {
-            content: currentLocationMarkerContentString,
-            size: new naver.maps.Size(22, 35),
-            anchor: new naver.maps.Point(11, 35)
-          },
-          draggable: false,
-        });
-
-        navigator.geolocation.watchPosition((position) => {
-          currentLocationMarker.setPosition(new naver.maps.LatLng(position.coords.latitude, position.coords.longitude));
-        });
-      }</script></body></html>
+      // });</script></body></html>

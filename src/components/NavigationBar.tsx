@@ -1,21 +1,21 @@
 import React from 'react';
+import { Status } from './App';
 import { Button } from './Button';
 import { Divider } from './Divider';
-import { Status } from './types';
 
-type Props = {
-  isMobile: boolean;
-  totalNumberOfCarDeliveryPoints: number;
-  index: number;
-  setIndex: (newIndex: number) => void;
-  status: Status;
-  setStatus: (newStatus: Status) => void;
-} & typeof defaultProps;
-
-const defaultProps = {};
-
-export const MainBar = (props: Props): JSX.Element => {
-  const { isMobile, totalNumberOfCarDeliveryPoints, index, setIndex, status, setStatus } = props;
+export const NavigationBar = ({
+  length,
+  index,
+  setIndex,
+  status,
+  setStatus,
+} : {
+  length: number,
+  index: number,
+  setIndex: (newIndex: number) => void,
+  status: Status,
+  setStatus: (newStatus: Status) => void,
+}): JSX.Element => {
 
   return (
     <div
@@ -28,7 +28,8 @@ export const MainBar = (props: Props): JSX.Element => {
         bottom: '10px',
         borderRadius: 20,
         boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
-        width: isMobile ? '90%': '300px',
+        width: '90%',
+        maxWidth: '300px',
         height: '60px',
         backgroundColor: 'white',
         zIndex: 105,
@@ -42,15 +43,13 @@ export const MainBar = (props: Props): JSX.Element => {
         status === Status.Ready &&
         <>
           <Button
-            isMobile={isMobile}
             content="배달 시작"
             borderRadius="20px"
             onClick={() => {
               setStatus(Status.OnDelivery);
               setIndex(0);
-              localStorage.setItem('currentIndex', '0');
 
-              // Trigger pan to marker
+              // Trigger pan to current delivery point
               window.dispatchEvent(new CustomEvent('selection', { detail: 0 }));
             }}
           />
@@ -60,19 +59,16 @@ export const MainBar = (props: Props): JSX.Element => {
         status === Status.OnDelivery &&
         <>
           <Button
-            isMobile={isMobile}
-            content={index === totalNumberOfCarDeliveryPoints - 1 ? "끝" : "다음"}
+            content={index === length - 1 ? "끝" : "다음"}
             borderRadius="20px 0px 0px 20px"
             onClick={() => {
-              if (index === totalNumberOfCarDeliveryPoints - 1) {
+              if (index === length - 1) {
                 setStatus(Status.Ready);
                 setIndex(0);
-                localStorage.setItem('currentIndex', '0');
               } else {
                 setIndex(index + 1);
-                localStorage.setItem('currentIndex', `${index + 1}`);
 
-                // Trigger pan to marker
+                // Trigger pan to current delivery point
                 window.dispatchEvent(new CustomEvent('selection', { detail: index + 1 }));
               }
             }}
@@ -82,12 +78,10 @@ export const MainBar = (props: Props): JSX.Element => {
             <>
             <Divider />
             <Button
-              isMobile={isMobile}
               content="이전"
               borderRadius="0px 0px 0px 0px"
               onClick={() => {
                 setIndex(index - 1);
-                localStorage.setItem('currentIndex', `${index - 1}`);
 
                 // Trigger pan to marker
                 window.dispatchEvent(new CustomEvent('selection', { detail: index - 1 }));
@@ -97,13 +91,11 @@ export const MainBar = (props: Props): JSX.Element => {
           }
           <Divider />
           <Button
-            isMobile={isMobile}
             content="중단"
             borderRadius="0px 20px 20px 0px"
             onClick={() => {
               setStatus(Status.Ready);
               setIndex(0);
-              localStorage.setItem('currentIndex', '0');
             }}
           />
         </>
@@ -112,4 +104,3 @@ export const MainBar = (props: Props): JSX.Element => {
     </div>
   );
 }
-MainBar.defaultProps = defaultProps;

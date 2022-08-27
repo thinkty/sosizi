@@ -3,28 +3,13 @@ import ReactDOMServer from 'react-dom/server';
 import useScript from 'react-script-hook';
 import { walkIcon } from './icons';
 import { InfoBar } from './InfoBar';
-import { MainBar } from './MainBar';
-
-// TODO: Doesn't seem to be working
-// Preload the images to reduce image render time. Takes an array of urls to
-// render the images from.
-export const preloadImages = (urls: string[]) => {
-  const images = [];
-
-  for (let i = 0; i < urls.length; i++) {
-    const image = new Image();
-    image.src = 'https://raw.githubusercontent.com/thinkty/sosizi/main/images/' + urls[i];
-    images.push(image);
-  }
-
-  console.log('Preloaded', images.length, 'images');
-};
+import { NavigationBar } from './NavigationBar';
 
 /**
  * Type for the delivery points data
  * 
  * @param {string} quantity amount of newspaper to deliver for the given address
- * @param {string} id unique ID for the delivery point
+ * @param {string} id unique ID for the delivery point, and also the district number (통)
  * @param {number[]} marker alt/longitude of the delivery point for displaying on the map
  * @param {string} note additional details for the delivery point
  * @param {string[]} pics unique IDs for the pics that contain delivery point detail
@@ -92,12 +77,12 @@ export const App = ({
       window.addEventListener('selection', ((e: CustomEvent) => {
         const i = e.detail;
 
-        if (!i || typeof i !== 'number') {
+        if (i == undefined || typeof i !== 'number') {
           console.error('Cannot recognize e.detail', e.detail);
           return;
         }
-
-        naverMap.panTo([carDeliveryPoints[i].marker[0], carDeliveryPoints[i].marker[1]], {});
+        
+        naverMap.panTo(new naver.maps.LatLng(deliveryPoints[i].marker[0], deliveryPoints[i].marker[1]), {});
       }) as EventListener);
 
       // Update current location every interval
@@ -147,15 +132,16 @@ export const App = ({
           }
 
           // Get the index of the marker and pan to the selected marker
-          deliveryPoints.forEach((point, index, _) => {
-            if (point.id === id) {
-              setIndex(index);
-              naverMap.panTo([point.marker[0], point.marker[1]], {});
+          for (let i = 0; i < deliveryPoints.length; i++) {
+            const point = deliveryPoints[i];
+            if (point.id == id) {
+              setIndex(i);
+              naverMap.panTo(new naver.maps.LatLng(point.marker[0], point.marker[1]), {});
               return;
             }
-          });
-
-          // Delivery point with the given ID not found
+          }
+          
+          // Delivery point with given ID not found
           console.error('Marker ID of', id, 'not found');
         });
       });
@@ -164,18 +150,26 @@ export const App = ({
 
   if (error) {
     return (
-      <div>
-        Oops, something went wrong while loading script
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 10,
+          gap: 10,
+        }}
+      >
+        <div>
+          Oops, something went wrong while loading script
+        </div>
+        <div>
+          스크립트를 로딩하는동안 문제가 발생했습니다
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
+    <div style={{ fontFamily: 'Arial, sans-serif' }} >
       <div
         id='map'
         style={{
@@ -185,11 +179,12 @@ export const App = ({
         }}
       ></div>
       <InfoBar
-        deliveryPoint={index !== -1 ? carDeliveryPoints[index] : null}
+        deliveryPoint={index !== -1 ? deliveryPoints[index] : null}
         index={index}
+        offest={walkingDeliveryPoints.length}
       />
-      <MainBar
-        totalNumberOfCarDeliveryPoints={carDeliveryPoints.length}
+      <NavigationBar
+        length={deliveryPoints.length}
         index={index}
         setIndex={(newIndex) => { setIndex(newIndex) }}
         status={status}
@@ -242,7 +237,7 @@ const DeliveryMarker = ({
     >
       {/* TODO: is the below className important? check Naver Map API */}
       <span className='marker-content'>
-        { walk ? walkIcon : ++order }
+        { walk ? walkIcon : order }
       </span>
     </div>
   );

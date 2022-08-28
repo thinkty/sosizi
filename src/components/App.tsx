@@ -3,6 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import useScript from 'react-script-hook';
 import { walkIcon } from './icons';
 import { InfoBar } from './InfoBar';
+import { Loading } from './Loading';
 import { NavigationBar } from './NavigationBar';
 
 /**
@@ -178,6 +179,13 @@ export const App = ({
           height: `${window.innerHeight}px`,
         }}
       ></div>
+      {
+        loading &&
+        <Loading
+          ms={100}
+          message='네이버 지도 불러오는 중...'
+        />
+      }
       <InfoBar
         deliveryPoint={index !== -1 ? deliveryPoints[index] : null}
       />

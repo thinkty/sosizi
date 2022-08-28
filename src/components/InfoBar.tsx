@@ -13,12 +13,8 @@ import { InfoBarHeader } from './InfoBarHeader';
  */
 export const InfoBar = ({
   deliveryPoint,
-  index,
-  offest,
 } : {
   deliveryPoint: DeliveryPointType | null,
-  index: number,
-  offest: number,
 }): JSX.Element => {
 
   if (deliveryPoint == null) {
@@ -47,7 +43,7 @@ export const InfoBar = ({
     >
       <div
         style={{
-          width: '100%',
+          width: '90%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -62,9 +58,6 @@ export const InfoBar = ({
         <InfoBarHeader
           addr={deliveryPoint.addr}
           id={deliveryPoint.id}
-          order={index}
-          offset={offest}
-          walk={deliveryPoint.walk}
         />
         <div>
           { deliveryPoint.quantity } 장

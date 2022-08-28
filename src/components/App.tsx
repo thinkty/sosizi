@@ -180,8 +180,6 @@ export const App = ({
       ></div>
       <InfoBar
         deliveryPoint={index !== -1 ? deliveryPoints[index] : null}
-        index={index}
-        offest={walkingDeliveryPoints.length}
       />
       <NavigationBar
         length={deliveryPoints.length}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Status } from './App';
 import { Button } from './Button';
 import { Divider } from './Divider';
+import { endIcon, nextIcon, playIcon, prevIcon, stopIcon } from './icons';
 
 export const NavigationBar = ({
   length,
@@ -43,7 +44,7 @@ export const NavigationBar = ({
         status === Status.Ready &&
         <>
           <Button
-            content="배달 시작"
+            content={playIcon}
             borderRadius="20px"
             onClick={() => {
               setStatus(Status.OnDelivery);
@@ -58,46 +59,49 @@ export const NavigationBar = ({
       {
         status === Status.OnDelivery &&
         <>
-          <Button
-            content={index === length - 1 ? "끝" : "다음"}
-            borderRadius="20px 0px 0px 20px"
-            onClick={() => {
-              if (index === length - 1) {
-                setStatus(Status.Ready);
-                setIndex(0);
-              } else {
-                setIndex(index + 1);
-
-                // Trigger pan to current delivery point
-                window.dispatchEvent(new CustomEvent('selection', { detail: index + 1 }));
-              }
-            }}
-          />
+          {/* Prev button */}
           {
             index >= 1 &&
             <>
-            <Divider />
-            <Button
-              content="이전"
-              borderRadius="0px 0px 0px 0px"
-              onClick={() => {
-                setIndex(index - 1);
+              <Button
+                content={prevIcon}
+                borderRadius="20px 0px 0px 20px"
+                onClick={() => {
+                  setIndex(index - 1);
 
-                // Trigger pan to marker
-                window.dispatchEvent(new CustomEvent('selection', { detail: index - 1 }));
-              }}
-            />
+                  // Trigger pan to marker
+                  window.dispatchEvent(new CustomEvent('selection', { detail: index - 1 }));
+                }}
+              />
+              <Divider />
             </>
           }
-          <Divider />
+          {/* Stop button */}
           <Button
-            content="중단"
+            content={index !== length - 1 ? stopIcon : endIcon}
             borderRadius="0px 20px 20px 0px"
             onClick={() => {
               setStatus(Status.Ready);
               setIndex(0);
             }}
           />
+          {/* Next button */}
+          {
+            index !== length - 1 &&
+            <>
+              <Divider />
+              <Button
+                content={nextIcon}
+                borderRadius="0px"
+                onClick={() => {
+                  setIndex(index + 1);
+
+                  // Trigger pan to current delivery point
+                  window.dispatchEvent(new CustomEvent('selection', { detail: index + 1 }));
+                }}
+              />
+            </>
+          }
         </>
       }
 

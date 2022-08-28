@@ -1,28 +1,30 @@
 import React, { useState } from 'react';
 
-type Props = {
-  content: string;
-  borderRadius: string;
-  onClick: VoidFunction;
-} & typeof defaultProps;
-
-const defaultProps = {
-  onClick: () => { console.log('Default onClick handler'); }
-};
-
-export const Button = (props: Props): JSX.Element => {
+/**
+ * @param {string | JSX.Element} content Content to be displayed in the button
+ * @param {string} borderRadius border radius of the button in '00px'
+ * @param {VoidFunction} onClick function to be called on click
+ * @returns 
+ */
+export const Button = ({
+  content,
+  borderRadius,
+  onClick,
+} : {
+  content: string | JSX.Element,
+  borderRadius: string,
+  onClick: VoidFunction,
+}): JSX.Element => {
   const [isHovering, setHover] = useState<boolean>(false);
 
   return (
     <div
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => {
-        props.onClick();
-      }}
+      onClick={onClick}
       style={{
         flex: 1,
-        borderRadius: props.borderRadius,
+        borderRadius: borderRadius,
         cursor: 'pointer',
         height: '100%',
         display: 'flex',
@@ -34,9 +36,7 @@ export const Button = (props: Props): JSX.Element => {
         userSelect: 'none', // Don't make the texts selectable
       }}
     >
-      { props.content }
+      { content }
     </div>
   );
 }
-
-Button.defaultProps = defaultProps;

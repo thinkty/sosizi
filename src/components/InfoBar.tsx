@@ -61,6 +61,12 @@ export const InfoBar = ({
         />
         <div>
           { deliveryPoint.quantity } 장
+          {
+            deliveryPoint.poster &&
+            <>
+              &nbsp;(포스터 ✓)
+            </>
+          }
         </div>
         {
           deliveryPoint.note &&

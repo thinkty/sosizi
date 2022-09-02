@@ -79,7 +79,7 @@ export const NavigationBar = ({
           {/* Stop button */}
           <Button
             content={index !== length - 1 ? stopIcon : endIcon}
-            borderRadius="0px 20px 20px 0px"
+            borderRadius="0px"
             onClick={() => {
               setStatus(Status.Ready);
               setIndex(0);
@@ -92,7 +92,7 @@ export const NavigationBar = ({
               <Divider />
               <Button
                 content={nextIcon}
-                borderRadius="0px"
+                borderRadius="0px 20px 20px 0px"
                 onClick={() => {
                   setIndex(index + 1);
 

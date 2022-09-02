@@ -48,8 +48,6 @@ export const InfoBar = ({
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: '10px',
-          paddingBottom: '10px',
           backgroundColor: 'white',
           boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
           borderRadius: '20px',
@@ -59,18 +57,64 @@ export const InfoBar = ({
           addr={deliveryPoint.addr}
           id={deliveryPoint.id}
         />
-        <div>
-          { deliveryPoint.quantity } 장
-          {
-            deliveryPoint.poster &&
-            <>
-              &nbsp;(포스터 ✓)
-            </>
-          }
-        </div>
+        <table
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            verticalAlign: 'center',
+            borderCollapse: 'collapse',
+          }}
+        >
+          <thead>
+            <tr>
+              <th
+                style={{
+                  borderBottom: 'thin solid black',
+                  borderRight: 'thin solid black',
+                  padding: 10,
+                }}
+              >
+                소식지
+              </th>
+              <th
+                style={{
+                  borderBottom: 'thin solid black',
+                  borderLeft: 'thin solid black',
+                  padding: 10,
+                }}
+              >
+                포스터
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  borderTop: 'thin solid black',
+                  borderRight: 'thin solid black',
+                  borderBottom: deliveryPoint.note ? 'thin solid black' : 'none',
+                  padding: 10,
+                }}
+              >
+                { deliveryPoint.quantity }
+              </td>
+              <td
+                style={{
+                  borderTop: 'thin solid black',
+                  borderLeft: 'thin solid black',
+                  borderBottom: deliveryPoint.note ? 'thin solid black' : 'none',
+                  padding: 10,
+                }}
+              >
+                { deliveryPoint.poster ? 'O' : 'X' }
+              </td>
+            </tr>
+          </tbody>
+        </table>
         {
           deliveryPoint.note &&
-          <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+          <div style={{ padding: 10 }}>
             { deliveryPoint.note }
           </div>
         }

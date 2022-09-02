@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import useScript from 'react-script-hook';
+import './App.css';
 import { walkIcon } from './icons';
 import { InfoBar } from './InfoBar';
 import { Loading } from './Loading';
@@ -181,21 +182,21 @@ export const App = ({
       ></div>
       {
         loading &&
-        <Loading
-          ms={100}
-          message='네이버 지도 불러오는 중...'
-        />
+        <Loading message='네이버 지도 불러오는 중...' />
       }
       <InfoBar
         deliveryPoint={index !== -1 ? deliveryPoints[index] : null}
       />
-      <NavigationBar
-        length={deliveryPoints.length}
-        index={index}
-        setIndex={(newIndex) => { setIndex(newIndex) }}
-        status={status}
-        setStatus={(newStatus) => { setStatus(newStatus) }}
-      />
+      {
+        !loading &&
+        <NavigationBar
+          length={deliveryPoints.length}
+          index={index}
+          setIndex={(newIndex) => { setIndex(newIndex) }}
+          status={status}
+          setStatus={(newStatus) => { setStatus(newStatus) }}
+        />
+      }
     </div>
   );
 }

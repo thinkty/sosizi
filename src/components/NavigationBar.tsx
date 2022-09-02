@@ -82,7 +82,7 @@ export const NavigationBar = ({
             borderRadius="0px"
             onClick={() => {
               setStatus(Status.Ready);
-              setIndex(0);
+              setIndex(-1);
             }}
           />
           {/* Next button */}

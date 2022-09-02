@@ -1,8 +1,9 @@
-import React from 'react';
-import { Status } from './App';
+import React, { useState } from 'react';
+import { DeliveryPointType, Status } from './App';
 import { Button } from './Button';
 import { Divider } from './Divider';
-import { endIcon, nextIcon, playIcon, prevIcon, stopIcon } from './icons';
+import { endIcon, listIcon, nextIcon, playIcon, prevIcon, stopIcon } from './icons';
+import { ListModal } from './ListModal';
 
 export const NavigationBar = ({
   length,
@@ -10,13 +11,19 @@ export const NavigationBar = ({
   setIndex,
   status,
   setStatus,
+  walkingDeliveryPoints,
+  carDeliveryPoints,
 } : {
   length: number,
   index: number,
   setIndex: (newIndex: number) => void,
   status: Status,
   setStatus: (newStatus: Status) => void,
+  walkingDeliveryPoints: DeliveryPointType[],
+  carDeliveryPoints: DeliveryPointType[],
 }): JSX.Element => {
+
+  const [open, openModal] = useState<boolean>(true);
 
   return (
     <div
@@ -43,9 +50,21 @@ export const NavigationBar = ({
       {
         status === Status.Ready &&
         <>
+          <ListModal
+            open={open}
+            walkingDeliveryPoints={walkingDeliveryPoints}
+            carDeliveryPoints={carDeliveryPoints}
+            closeModal={() => { openModal(false) }}
+          />
+          <Button
+            content={listIcon}
+            borderRadius="20px 0px 0px 20px"
+            onClick={() => { openModal(true) }}
+          />
+          <Divider />
           <Button
             content={playIcon}
-            borderRadius="20px"
+            borderRadius="0px 20px 20px 0px"
             onClick={() => {
               setStatus(Status.OnDelivery);
               setIndex(0);

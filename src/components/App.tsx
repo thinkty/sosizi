@@ -190,6 +190,8 @@ export const App = ({
       {
         !loading &&
         <NavigationBar
+          walkingDeliveryPoints={walkingDeliveryPoints}
+          carDeliveryPoints={carDeliveryPoints}
           length={deliveryPoints.length}
           index={index}
           setIndex={(newIndex) => { setIndex(newIndex) }}

@@ -62,7 +62,7 @@ export const ListModal = ({
       <table
         style={{
           display: 'block',
-          maxHeight: '80vh',
+          maxHeight: '70vh',
           overflow: 'auto',
           backgroundColor: 'white',
           borderRadius: 10,

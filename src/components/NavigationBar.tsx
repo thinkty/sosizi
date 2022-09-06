@@ -23,7 +23,7 @@ export const NavigationBar = ({
   carDeliveryPoints: DeliveryPointType[],
 }): JSX.Element => {
 
-  const [open, openModal] = useState<boolean>(true);
+  const [open, openModal] = useState<boolean>(false);
 
   return (
     <div
